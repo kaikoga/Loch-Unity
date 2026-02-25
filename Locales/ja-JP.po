@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2026-02-21 08:11+0900\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: ja_JP\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 3.8\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: Tr;Loc\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: Editor/Silksprite/Loch/LochConfigObjectEditor.cs:22
+msgid "LochConfigObject::assemblies"
+msgstr "アセンブリ"
+
+#: Editor/Silksprite/Loch/LochConfigObjectEditor.cs:23
+msgid "LochConfigObject::assemblyPrefixes"
+msgstr "アセンブリプレフィクス"
+
+#: Editor/Silksprite/Loch/LochConfigObjectEditor.cs:38
+#: Editor/Silksprite/Loch/LochConfigObjectEditor.cs:40
+msgid "LochConfigObject::extractAssemblies"
+msgstr "アセンブリを抽出"
+
+#: Editor/Silksprite/Loch/LochConfigObjectEditor.cs:45
+msgid "LochConfigObject::generatePotFile"
+msgstr "Potファイルを生成"
+
+#: Editor/Silksprite/Loch/LochConfigObjectEditor.cs:21
+msgid "LochConfigObject::key"
+msgstr "設定キー"
+
+#: Editor/Silksprite/Loch/LochConfigObjectEditor.cs:24
+msgid "LochConfigObject::po"
+msgstr "Poファイル"
+
+#: Editor/Silksprite/Loch/LochConfigObjectEditor.cs:36
+msgid "LochConfigObject::utilitiesForLochPackages"
+msgstr "Lochパッケージ用ユーティリティ"
+
+#~ msgid "LochConfigObject::extractUxmlTranslations"
+#~ msgstr "UxmlTranslations.csを抽出する"

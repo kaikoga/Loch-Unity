@@ -1,0 +1,22 @@
+{
+    "name": "Loch",
+    "rootNamespace": "Silksprite.Loch",
+    "references": [
+        "nadena.dev.ndmf"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "nadena.dev.ndmf",
+            "expression": "[1.3.0,999.0.0)",
+            "define": "LOCH_NDMF_SUPPORT"
+        }
+    ],
+    "noEngineReferences": false
+}
