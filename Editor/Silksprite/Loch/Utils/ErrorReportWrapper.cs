@@ -1,11 +1,11 @@
 using System.Linq;
 using JetBrains.Annotations;
-using nadena.dev.ndmf.localization;
 using Silksprite.Loch.Extensions;
 using UnityEngine;
 
 #if LOCH_NDMF_SUPPORT
 using nadena.dev.ndmf;
+using nadena.dev.ndmf.localization;
 #endif
 
 namespace Silksprite.Loch.Utils

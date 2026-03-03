@@ -5,10 +5,8 @@
   "version": "2.0.0",
   "unity": "2019.4",
   "description": "Loch is a Localization Helper",
-  "gitDependencies": {
-  },
-  "vpmDependencies": {
-  },
+  "gitDependencies": {},
+  "vpmDependencies": {},
   "author": {
     "name": "kaikoga",
     "email": "info@mail.kaikoga.net",
