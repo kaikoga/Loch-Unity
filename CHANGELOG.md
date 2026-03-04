@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - 2026-03-05
+
+- Fixed compile error without NDMF.
+
 ## [2.0.0] - 2026-02-26
 
 - Initial release.
