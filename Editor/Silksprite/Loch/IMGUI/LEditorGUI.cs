@@ -89,6 +89,7 @@ namespace Silksprite.Loch.IMGUI
         public static void PropAsEnumPopup<TEnum>(Rect position, LocalizedProperty lop, GUIContent label)
             where TEnum : Enum
         {
+            using (new EditorGUI.PropertyScope(position, label, lop.Property))
             using (new ShowMixedValueScope(lop))
             {
                 EditorGUI.BeginChangeCheck();
