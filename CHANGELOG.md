@@ -6,7 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.2] - 2026-03-11
+
+### Fixed
+
+- Fixed Loch translation not displayed properly after Play Mode change
+- Fixed PropAsEnumPopup not displayed with PropertyScope
+
 ## [2.0.1] - 2026-03-05
+
+### Fixed
 
 - Fixed compile error without NDMF.
 
