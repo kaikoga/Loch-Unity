@@ -20,6 +20,7 @@ namespace Silksprite.Loch.Core
             {
                 source.Load(LochRepository.Instance);
             }
+            LochRepository.Instance.ReloadCurrentLocales();
         }
     }
 }
