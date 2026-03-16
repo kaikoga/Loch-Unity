@@ -7,6 +7,12 @@ namespace Silksprite.Loch.Core.Settings
 {
     class NdmfLocaleSettingRepository : ILocaleSettingRepository
     {
+        public bool EnableCSharpLocale
+        {
+            get => false;
+            set { }
+        }
+
         public NdmfLocaleSettingRepository()
         {
             LanguagePrefs.RegisterLanguageChangeCallback(this, _ => LochRepository.Instance.ReloadCurrentLocales());    
@@ -20,8 +26,8 @@ namespace Silksprite.Loch.Core.Settings
 
         public void Write(string key, Locale locale)
         {
-            var ndmfLocale = Locale.Resolve(locale.LocaleCode, LanguagePrefs.RegisteredLanguages.Select(Locale.FromLangCode).ToArray());
-            LanguagePrefs.Language = ndmfLocale.NdmfCode;
+            var ndmfLocale = Locale.Resolve(locale.LocaleCode, LanguagePrefs.RegisteredLanguages.Select(Locale.FromLocaleCode).ToArray());
+            LanguagePrefs.Language = ndmfLocale.NdmfCodeInternal;
         }
     }
 }

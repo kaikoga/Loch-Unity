@@ -36,7 +36,10 @@ namespace Silksprite.Loch.Core
         public LochDomain(string key, IEnumerable<ILocalizationProvider> po, IEnumerable<string> assemblies, IEnumerable<string> assemblyPrefixes)
         {
             _key = key;
-            _locales = po.Select(p => new Localizer(p)).ToArray();
+            _locales = (LocaleSettingRepository.Instance.EnableCSharpLocale
+                ? po.Select(p => new Localizer(p)).Concat(new [] { Localizer.CSharp() })
+                : po.Select(p => new Localizer(p)))
+                .ToArray();
             _assemblies = assemblies.ToHashSet();
             _assemblyPrefixes = assemblyPrefixes.ToArray();
             LocaleSet = new LocaleSet(_locales.Select(locale => locale.Locale));

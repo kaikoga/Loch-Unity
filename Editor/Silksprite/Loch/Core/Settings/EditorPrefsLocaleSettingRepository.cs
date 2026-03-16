@@ -7,7 +7,16 @@ namespace Silksprite.Loch.Core.Settings
     [UsedImplicitly]
     class EditorPrefsLocaleSettingRepository : ILocaleSettingRepository
     {
-        static string EditorPrefKey(string key) => "net.kaikoga.Loch.locales." + key;
+        const string LocalesKeyPrefix = "net.kaikoga.Loch.locales";
+        const string EnableCSharpLocaleKey = "net.kaikoga.Loch.enableCSharpLocale";
+
+        static string EditorPrefKey(string key) => $"{LocalesKeyPrefix}.{key}";
+
+        public bool EnableCSharpLocale
+        {
+            get => EditorPrefs.GetBool(EnableCSharpLocaleKey, false);
+            set => EditorPrefs.SetBool(EnableCSharpLocaleKey, value);
+        }
 
         public Locale Resolve(string key, IReadOnlyCollection<Locale> locales)
         {

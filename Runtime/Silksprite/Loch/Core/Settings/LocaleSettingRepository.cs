@@ -18,6 +18,8 @@ namespace Silksprite.Loch.Core.Settings
 
     interface ILocaleSettingRepository
     {
+        bool EnableCSharpLocale { get; set; }
+
         Locale Resolve(string key, IReadOnlyCollection<Locale> locales);
         void Write(string key, Locale locale);
     }

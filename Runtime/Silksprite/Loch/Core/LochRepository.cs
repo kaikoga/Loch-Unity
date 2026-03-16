@@ -38,11 +38,11 @@ namespace Silksprite.Loch.Core
                     .SelectMany(group => group.Take(1))
                     .ToArray();
                 var generalizedLanguageCodes = locales
-                    .Where(locale => locale.LocaleCode != locale.LanguageCode)
-                    .Select(locale => locale.LanguageCode)
+                    .Where(locale => locale.LocaleCode != locale.LocaleGroup)
+                    .Select(locale => locale.LocaleGroup)
                     .ToHashSet();
                 var filteredLocales = locales
-                    .Where(locale => locale.LocaleCode != locale.LanguageCode && generalizedLanguageCodes.Contains(locale.LanguageCode)); 
+                    .Where(locale => locale.LocaleCode != locale.LocaleGroup && generalizedLanguageCodes.Contains(locale.LocaleGroup)); 
                 _localeSet = new LocaleSet(filteredLocales);
                 return _localeSet;
             }

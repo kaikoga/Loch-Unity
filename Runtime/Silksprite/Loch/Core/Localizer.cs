@@ -10,6 +10,8 @@ namespace Silksprite.Loch.Core
 {
     class Localizer
     {
+        public static Localizer CSharp() => new Localizer(null);
+
         readonly ILocalizationProvider? _po;
         public readonly Locale Locale;
 
@@ -21,7 +23,7 @@ namespace Silksprite.Loch.Core
         public Localizer(ILocalizationProvider? po)
         {
             _po = po;
-            Locale = Locale.FromLangCode(po?.LocaleIsoCode);
+            Locale = Locale.FromLocaleCode(po?.LocaleIsoCode);
         }
 
         public string? TrCachedOrDefault(string key)
