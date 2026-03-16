@@ -24,7 +24,7 @@ namespace Silksprite.Loch.Core
         readonly List<LochDomain> _domains = new List<LochDomain>();
         LocaleSet? _localeSet;
 
-        public LocaleSet localeSet
+        internal LocaleSet LocaleSet
         {
             get
             {
@@ -48,9 +48,9 @@ namespace Silksprite.Loch.Core
             }
         }
 
-        internal Locale currentLocale
+        internal Locale CurrentLocale
         {
-            get => _domains.First().currentLocale;
+            get => _domains.First().CurrentLocale;
             set => SelectLocale(value);
         }
 

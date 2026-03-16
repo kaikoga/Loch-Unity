@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Silksprite.Loch.Core
 {
-    public class LocaleSet
+    class LocaleSet
     {
         internal readonly Locale[] Locales;
         internal readonly string[] LocaleCodes;

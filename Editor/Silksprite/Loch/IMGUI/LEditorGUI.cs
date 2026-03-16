@@ -22,7 +22,7 @@ namespace Silksprite.Loch.IMGUI
             using var changed = new EditorGUI.ChangeCheckScope();
             var lang = EditorGUI.Popup(position,
                 "Plugin Language",
-                Array.IndexOf(localeSet.LocaleCodes, domain.currentLocale.LocaleCode),
+                Array.IndexOf(localeSet.LocaleCodes, domain.CurrentLocale.LocaleCode),
                 localeSet.LocaleDisplayNames);
             if (changed.changed && lang >= 0)
             {
@@ -32,12 +32,12 @@ namespace Silksprite.Loch.IMGUI
 
         public static void GlobalLocaleSelector(Rect position)
         {
-            var localeSet = LochRepository.Instance.localeSet;
+            var localeSet = LochRepository.Instance.LocaleSet;
             if (!localeSet.IsSelectable) return;
             using var changed = new EditorGUI.ChangeCheckScope();
             var lang = EditorGUI.Popup(position,
                 "Plugin(s) Language",
-                Array.IndexOf(localeSet.LocaleCodes, LochRepository.Instance.currentLocale.LocaleCode),
+                Array.IndexOf(localeSet.LocaleCodes, LochRepository.Instance.CurrentLocale.LocaleCode),
                 localeSet.LocaleDisplayNames);
             if (changed.changed && lang >= 0)
             {

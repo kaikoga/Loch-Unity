@@ -15,10 +15,10 @@ namespace Silksprite.Loch.Core
         readonly Localizer[] _locales;
         readonly HashSet<string> _assemblies;
         readonly string[] _assemblyPrefixes;
-        public readonly LocaleSet LocaleSet;
+        internal readonly LocaleSet LocaleSet;
         Localizer _currentLocalizer;
 
-        internal Locale currentLocale
+        internal Locale CurrentLocale
         {
             get => _currentLocalizer.Locale;
             set => SelectLocale(value);
