@@ -36,7 +36,7 @@ namespace Silksprite.Loch.IMGUI
             where TEnum : Enum =>
             LEditorGUI.PropAsEnumPopup<TEnum>(EditorGUILayout.GetControlRect(options), lop);
 
-        public static T ObjectField<T>(LocalizedContent loc, T obj, bool allowSceneObjects, params GUILayoutOption[] options)
+        public static T ObjectField<T>(LocalizedContent loc, T? obj, bool allowSceneObjects, params GUILayoutOption[] options)
             where T : UnityEngine.Object =>
             (T) EditorGUILayout.ObjectField(loc.GUIContent, obj, typeof(T), allowSceneObjects, options);
 
