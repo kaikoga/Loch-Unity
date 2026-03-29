@@ -112,11 +112,20 @@ namespace Silksprite.Loch.IMGUI
             where T : UnityEngine.Object =>
             (T) EditorGUI.ObjectField(position, loc.GUIContent, obj, typeof(T), allowSceneObjects);
 
+        public static void LabelField(Rect position, LocalizedContent loc) =>
+            EditorGUI.LabelField(position, loc.GUIContent);
+
         public static void LabelField(Rect position, LocalizedContent loc, string value) =>
             EditorGUI.LabelField(position, loc.GUIContent, new GUIContent(value));
 
         public static int IntField(Rect position, LocalizedContent loc, int value) =>
             EditorGUI.IntField(position, loc.GUIContent, value);
+        
+        public static float FloatField(Rect position, LocalizedContent loc, float value) =>
+            EditorGUI.FloatField(position, loc.GUIContent, value);
+        
+        public static string TextField(Rect position, LocalizedContent loc, string value) =>
+            EditorGUI.TextField(position, loc.GUIContent, value);
         
         public static bool Toggle(Rect position, LocalizedContent loc, bool value) =>
             EditorGUI.Toggle(position, loc.GUIContent, value);

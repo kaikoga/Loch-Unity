@@ -2,6 +2,7 @@ using System;
 using System.Reflection;
 using JetBrains.Annotations;
 using Silksprite.Loch.Core;
+using Silksprite.Loch.Core.Reflection;
 using UnityEngine;
 
 namespace Silksprite.Loch.Tools
@@ -70,6 +71,12 @@ namespace Silksprite.Loch.Tools
         public static LocalizedContent LocEmpty()
         {
             return new LocalizedContent("", Assembly.GetCallingAssembly());
+        }
+
+        public static LocalizedContent LocEnum<T>(T enumValue)
+            where T : Enum
+        {
+            return new LocalizedContent(LEnumData.Key(enumValue), Assembly.GetCallingAssembly());
         }
 
         public static LocalizedContent _Loc(string key)
