@@ -41,8 +41,8 @@ namespace Silksprite.Loch.Extractor
                         {
                             case "text":
                             case "label":
-                                defaultValue = properties[i + 1];
                                 hasValue = true;
+                                defaultValue = properties[i + 1];
                                 break;
                             case "name":
                                 nameValue = $"{tree.name}::{properties[i + 1]}";
@@ -58,7 +58,7 @@ namespace Silksprite.Loch.Extractor
                         yield return new ExtractedLoc(
                             loc,
                             Path.GetRelativePath(rootDirectory, assetPath),
-                            defaultValue);
+                            defaultValue!);
                     }
                 }
             }

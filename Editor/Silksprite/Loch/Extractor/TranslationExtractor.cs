@@ -8,20 +8,6 @@ namespace Silksprite.Loch.Extractor
 {
     static class TranslationExtractor
     {
-        const string PotHeader = @"msgid """"
-msgstr """"
-""Project-Id-Version: \n""
-""POT-Creation-Date: @@@date@@@\n""
-""PO-Revision-Date: \n""
-""Last-Translator: \n""
-""Language-Team: \n""
-""Language: en\n""
-""MIME-Version: 1.0\n""
-""Content-Type: text/plain; charset=UTF-8\n""
-""Content-Transfer-Encoding: 8bit\n""
-""X-Generator: Loch\n""
-";
-
         public static void ExtractTranslations(LochConfigObject target)
         {
             var path = AssetDatabase.GetAssetPath(target);

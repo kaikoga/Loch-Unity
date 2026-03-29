@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Silksprite.Loch.Core;
 using Silksprite.Loch.Core.Reflection;
 
 namespace Silksprite.Loch.Extractor
