@@ -50,11 +50,11 @@ namespace Silksprite.Loch.Utils
             public override string[]? HintSubst => null;
             #endregion
 
-            public WrappedError(ErrorSeverity errorSeverity, LocalizedContent loc, Object? context, Substitution? substitution)
+            public WrappedError(ErrorSeverity errorSeverity, LocalizedContent loc, Object? context, Substitution substitution)
             {
                 Severity = errorSeverity;
                 _loc = loc;
-                _substitution = substitution ?? Substitution.Empty;
+                _substitution = substitution;
                 AddReference(ObjectRegistry.GetReference(context));
             }
 
