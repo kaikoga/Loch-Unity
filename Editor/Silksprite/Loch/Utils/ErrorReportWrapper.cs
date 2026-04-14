@@ -13,21 +13,21 @@ namespace Silksprite.Loch.Utils
     [PublicAPI]
     public static class ErrorReportWrapper
     {
-        public static void LogWarningFormat(LocalizedContent loc, Substitution substitution)
+        public static void LogWarningFormat(LocalizedContent loc)
         {
 #if LOCH_NDMF_SUPPORT
-            ErrorReport.ReportError(new WrappedError(ErrorSeverity.NonFatal, loc, null, substitution));
+            ErrorReport.ReportError(new WrappedError(ErrorSeverity.NonFatal, loc, null));
 #else
-            Debug.LogWarningFormat(substitution.Format(loc.Tr), null);
+            Debug.LogWarningFormat(loc.Tr, null);
 #endif
         }
 
-        public static void LogWarningFormat(LocalizedContent loc, Object target, Substitution substitution)
+        public static void LogWarningFormat(LocalizedContent loc, Object target)
         {
 #if LOCH_NDMF_SUPPORT
-            ErrorReport.ReportError(new WrappedError(ErrorSeverity.NonFatal, loc, target, substitution));
+            ErrorReport.ReportError(new WrappedError(ErrorSeverity.NonFatal, loc, target));
 #else
-            Debug.LogWarningFormat(substitution.Format(loc.Tr), target);
+            Debug.LogWarningFormat(loc.Tr, target);
 #endif
         }
         
@@ -38,7 +38,6 @@ namespace Silksprite.Loch.Utils
 
             readonly LocalizedContent _loc;
             readonly ObjectReference? _context;
-            readonly Substitution _substitution;
 
             #region unused ndmf API
             public override Localizer? Localizer => null;
@@ -50,22 +49,21 @@ namespace Silksprite.Loch.Utils
             public override string[]? HintSubst => null;
             #endregion
 
-            public WrappedError(ErrorSeverity errorSeverity, LocalizedContent loc, Object? context, Substitution substitution)
+            public WrappedError(ErrorSeverity errorSeverity, LocalizedContent loc, Object? context)
             {
                 Severity = errorSeverity;
                 _loc = loc;
-                _substitution = substitution;
                 AddReference(ObjectRegistry.GetReference(context));
             }
 
             public override string? FormatTitle()
             {
-                return _loc.Format(_substitution).Tr.SplitCompat("\n").FirstOrDefault();
+                return _loc.Tr.SplitCompat("\n").FirstOrDefault();
             }
 
             public override string FormatDetails()
             {
-                return _loc.Format(_substitution).Tr;
+                return _loc.Tr;
             }
 
             public override string? FormatHint()
