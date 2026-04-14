@@ -1,11 +1,18 @@
-using System.Linq;
 using JetBrains.Annotations;
-using Silksprite.Loch.Extensions;
 using UnityEngine;
 
 #if LOCH_NDMF_SUPPORT
 using nadena.dev.ndmf;
-using nadena.dev.ndmf.localization;
+using NdmfErrorReport = nadena.dev.ndmf.ErrorReport;
+#endif
+
+#if LOCH_ABLET_SUPPORT
+using Ablet.ErrorReporting;
+using AbletErrorReport = Ablet.ErrorReporting.ErrorReport;
+#endif
+
+#if LOCH_NDMF_SUPPORT && LOCH_ABLET_SUPPORT
+using Ablet.API;
 #endif
 
 namespace Silksprite.Loch.Utils
@@ -13,64 +20,60 @@ namespace Silksprite.Loch.Utils
     [PublicAPI]
     public static class ErrorReportWrapper
     {
+#if LOCH_NDMF_SUPPORT && LOCH_ABLET_SUPPORT
+        static bool UseNdmf => !AbletSymbols.PreferAblet;
+#elif LOCH_NDMF_SUPPORT
+        static bool UseNdmf => true;
+#else
+        static bool UseNdmf => false;
+#endif
+
+#if LOCH_ABLET_SUPPORT && LOCH_NDMF_SUPPORT 
+        static bool UseAblet => AbletSymbols.PreferAblet;
+#elif LOCH_ABLET_SUPPORT
+        static bool UseAblet => true;
+#else
+        static bool UseAblet => false;
+#endif
+        
         public static void LogWarningFormat(LocalizedContent loc)
         {
 #if LOCH_NDMF_SUPPORT
-            ErrorReport.ReportError(new WrappedError(ErrorSeverity.NonFatal, loc, null));
-#else
-            Debug.LogWarningFormat(loc.Tr, null);
+            if (UseNdmf)
+            {
+                NdmfErrorReport.ReportError(new WrappedError(ErrorSeverity.NonFatal, loc, null));
+                return;
+            }
 #endif
+#if LOCH_ABLET_SUPPORT
+            if (UseAblet)
+            {
+                AbletErrorReport.LogWarning(loc.Tr);
+                return;
+            }
+#endif
+            Debug.LogWarning(loc.Tr);
         }
 
         public static void LogWarningFormat(LocalizedContent loc, Object target)
         {
 #if LOCH_NDMF_SUPPORT
-            ErrorReport.ReportError(new WrappedError(ErrorSeverity.NonFatal, loc, target));
-#else
-            Debug.LogWarningFormat(loc.Tr, target);
+            if (UseNdmf)
+            {
+                NdmfErrorReport.ReportError(new WrappedError(ErrorSeverity.NonFatal, loc, target));
+                return;
+            }
 #endif
-        }
-        
-#if LOCH_NDMF_SUPPORT
-        class WrappedError : SimpleError
-        {
-            public override ErrorSeverity Severity { get; }
-
-            readonly LocalizedContent _loc;
-            readonly ObjectReference? _context;
-
-            #region unused ndmf API
-            public override Localizer? Localizer => null;
-
-            public override string? TitleKey => null;
-
-            public override string[]? TitleSubst => null;
-            public override string[]? DetailsSubst => null;
-            public override string[]? HintSubst => null;
-            #endregion
-
-            public WrappedError(ErrorSeverity errorSeverity, LocalizedContent loc, Object? context)
+#if LOCH_ABLET_SUPPORT
+            if (UseAblet)
             {
-                Severity = errorSeverity;
-                _loc = loc;
-                AddReference(ObjectRegistry.GetReference(context));
+                using var _ = new InterestScope(target);
+                AbletErrorReport.LogWarning(loc.Tr);
+                return;
             }
-
-            public override string? FormatTitle()
-            {
-                return _loc.Tr.SplitCompat("\n").FirstOrDefault();
-            }
-
-            public override string FormatDetails()
-            {
-                return _loc.Tr;
-            }
-
-            public override string? FormatHint()
-            {
-                return null;
-            }
-        }
 #endif
+            Debug.LogWarning(loc.Tr, target);
+        }
+
     }
 }

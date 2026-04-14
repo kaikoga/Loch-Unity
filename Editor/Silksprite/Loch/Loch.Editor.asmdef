@@ -3,6 +3,8 @@
     "rootNamespace": "Silksprite.Loch",
     "references": [
         "nadena.dev.ndmf",
+        "Ablet.API",
+        "Ablet.ErrorReporting",
         "Loch"
     ],
     "includePlatforms": [
@@ -21,6 +23,11 @@
             "name": "nadena.dev.ndmf",
             "expression": "[1.3.0,999.0.0)",
             "define": "LOCH_NDMF_SUPPORT"
+        },
+        {
+            "name": "net.kaikoga.ablet",
+            "expression": "[2.0.0,999.0.0)",
+            "define": "LOCH_ABLET_SUPPORT"
         }
     ],
     "noEngineReferences": false
