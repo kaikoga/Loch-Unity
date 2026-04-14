@@ -67,7 +67,5 @@ namespace Silksprite.Loch.IMGUI
         
         public static void HelpBox(LocalizedContent loc, MessageType type) =>
             EditorGUILayout.HelpBox(loc.LongTr, type);
-        public static void HelpBox(LocalizedContent loc, MessageType type, Substitution substitution) =>
-            EditorGUILayout.HelpBox(loc.LongTrFormat(substitution), type);
     }
 }

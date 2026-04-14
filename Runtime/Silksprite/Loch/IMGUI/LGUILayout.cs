@@ -19,9 +19,6 @@ namespace Silksprite.Loch.IMGUI
         public static bool Button(LocalizedContent loc, params GUILayoutOption[] options)
             => GUILayout.Button(loc.GUIContent, options);
 
-        public static bool Button(LocalizedContent loc, Substitution substitution, params GUILayoutOption[] options)
-            => GUILayout.Button(loc.GUIContentFormat(substitution), options);
-
         public static bool RepeatButton(LocalizedContent loc, params GUILayoutOption[] options)
             => GUILayout.RepeatButton(loc.GUIContent, options);
 
