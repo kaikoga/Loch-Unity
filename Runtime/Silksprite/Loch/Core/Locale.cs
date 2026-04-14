@@ -31,11 +31,6 @@ namespace Silksprite.Loch.Core
         string LocaleCodeIgnoreCase => LocaleCode.ToLowerInvariant();
         [UsedImplicitly]
         internal string NdmfCodeInternal => LocaleCodeIgnoreCase;
-        
-        [Obsolete]
-        public string NdmfCode => LocaleCodeIgnoreCase;
-        [Obsolete]
-        public string LanguageCode => LocaleGroup;
 
         public string DisplayName => GuessDisplayName(this);
         public bool Nowrap => GuessNowrap(LocaleCode);
@@ -44,9 +39,6 @@ namespace Silksprite.Loch.Core
         {
             LocaleCode = Normalize(localeCode);
         }
-
-        [Obsolete]
-        public static Locale FromLangCode(string? langCode) => langCode != null ? new Locale(langCode) : Default;
 
         internal static Locale FromLocaleCode(string? localeCode) => localeCode != null ? new Locale(localeCode) : CSharp;
 
