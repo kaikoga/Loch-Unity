@@ -31,6 +31,15 @@ namespace Silksprite.Loch
             return this;
         }
 
+        internal Substitution Merge(Dictionary<string, string> dict)
+        {
+            foreach (var key in dict)
+            {
+                Dict.Add(key.Key, key.Value);
+            }
+            return this;
+        }
+
         public string Format(string value) => ToReadOnly().Format(value);
 
         internal ReadOnlySubstitution ToReadOnly() => new ReadOnlySubstitution(_dict);
@@ -48,6 +57,17 @@ namespace Silksprite.Loch
 
         public ReadOnlySubstitution(Dictionary<string, string>? dict) => _dict = dict;
         
+        public ReadOnlySubstitution Merge(Substitution other)
+        {
+            var substitution = new Substitution();
+            if (_dict is { } dict)
+            {
+                substitution.Merge(dict);
+            }
+            substitution.Merge(other);
+            return substitution.ToReadOnly();
+        }
+
         public string Format(string value)
         {
             return _dict is { } dict ? Pattern.Replace(value, match =>

@@ -60,12 +60,12 @@ namespace Silksprite.Loch.Utils
 
             public override string? FormatTitle()
             {
-                return _loc.TrFormat(_substitution).SplitCompat("\n").FirstOrDefault();
+                return _loc.Format(_substitution).Tr.SplitCompat("\n").FirstOrDefault();
             }
 
             public override string FormatDetails()
             {
-                return _loc.TrFormat(_substitution);
+                return _loc.Format(_substitution).Tr;
             }
 
             public override string? FormatHint()

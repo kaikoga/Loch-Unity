@@ -24,13 +24,14 @@ namespace Silksprite.Loch
             Substitution = ReadOnlySubstitution.Empty;
         }
 
-        public LocalizedContent Format(Substitution substitution) => new LocalizedContent(_key, Assembly, substitution);
+        public LocalizedContent Format(Substitution substitution) => new LocalizedContent(_key, Assembly, substitution.ToReadOnly());
+        public LocalizedContent Merge(Substitution substitution) => new LocalizedContent(_key, Assembly, Substitution.Merge(substitution));
 
-        LocalizedContent(string key, Assembly assembly, Substitution substitution)
+        LocalizedContent(string key, Assembly assembly, ReadOnlySubstitution substitution)
         {
             _key = key;
             Assembly = assembly;
-            Substitution = substitution.ToReadOnly();
+            Substitution = substitution;
         }
 
         public string Tr => MaybeFormat(LochRepository.Instance.Tr(_key, Assembly));
