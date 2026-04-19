@@ -7,7 +7,7 @@ namespace Silksprite.Loch.Core
 {
     public readonly struct Locale
     {
-        static readonly Locale Default = new Locale("en-US");
+        public static readonly Locale Default = new Locale("en-US");
         static readonly Locale CSharp = new Locale("CSharp");
 
         static readonly Dictionary<string, string> LocaleCodeToLocaleGroup = new Dictionary<string, string>();

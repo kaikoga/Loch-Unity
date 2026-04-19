@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Silksprite.Loch.Core
 {
-    public class LochRepository
+    public class LochRepository : ILochDomainLoader
     {
         public static readonly LochRepository Instance = new LochRepository();
 
@@ -21,7 +21,26 @@ namespace Silksprite.Loch.Core
                 new [] { name });
         }
 
+        void ILochDomainLoader.Load(LochDomain lochDomain)
+        {
+            _domains.Add(lochDomain);
+            _localeSet = null;
+        }
+
+        bool _isLoaded;
         readonly List<LochDomain> _domains = new List<LochDomain>();
+
+        IReadOnlyCollection<LochDomain> LoadDomains() 
+        {
+            if (_isLoaded)
+            {
+                return _domains;
+            }
+            LochDomainSourceRegistry.Instance.ReloadSources();
+            _isLoaded = true;
+            return _domains;
+        }
+
         LocaleSet? _localeSet;
 
         internal LocaleSet LocaleSet
@@ -32,7 +51,7 @@ namespace Silksprite.Loch.Core
                 {
                     return _localeSet;
                 }
-                var locales = _domains
+                var locales = LoadDomains()
                     .SelectMany(domain => domain.LocaleSet.Locales)
                     .GroupBy(locale => locale.LocaleCode, locale => locale)
                     .SelectMany(group => group.Take(1))
@@ -50,7 +69,7 @@ namespace Silksprite.Loch.Core
 
         internal Locale CurrentLocale
         {
-            get => _domains.First().CurrentLocale;
+            get => LoadDomains().FirstOrDefault()?.CurrentLocale ?? Locale.Default;
             set => SelectLocale(value);
         }
 
@@ -68,17 +87,28 @@ namespace Silksprite.Loch.Core
         {
         }
 
-        public void Add(LochDomain lochDomain)
+        internal void InvalidateDomainCache()
         {
-            _domains.Add(lochDomain);
+            _domains.Clear();
             _localeSet = null;
+            _isLoaded = false;
+        }
+
+        internal void ReloadCurrentLocales()
+        {
+            foreach (var domain in _domains)
+            {
+                domain.LoadCurrentLocale();
+            }
+            OnLocaleChanged?.Invoke();
         }
 
         internal LochDomain Get(Assembly assembly)
         {
             var asmName = assembly.GetName().Name;
-            return _domains.FirstOrDefault(domain => domain.Match(asmName))
-                   ?? _domains.FirstOrDefault(domain => domain.WeakMatch(asmName))
+            var domains = LoadDomains();
+            return domains.FirstOrDefault(domain => domain.Match(asmName))
+                   ?? domains.FirstOrDefault(domain => domain.WeakMatch(asmName))
                    ?? Fallback(assembly);
         }
 
@@ -111,19 +141,5 @@ namespace Silksprite.Loch.Core
             LEnumRepository.Instance.TryGetData(enumValue.GetType(), out _)
                 ? TryGUIContent(LEnumData.Key(enumValue), assembly)
                 : null;
-
-        public void ClearAllCaches()
-        {
-            _domains.Clear();
-        }
-
-        internal void ReloadCurrentLocales()
-        {
-            foreach (var domain in _domains)
-            {
-                domain.LoadCurrentLocale();
-            }
-            OnLocaleChanged?.Invoke();
-        }
     }
 }

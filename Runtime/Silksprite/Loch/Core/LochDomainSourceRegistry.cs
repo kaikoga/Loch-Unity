@@ -11,16 +11,15 @@ namespace Silksprite.Loch.Core
         public void Add(ILochDomainSource source)
         {
             _sources.Add(source);
+            LochRepository.Instance.InvalidateDomainCache();
         }
 
-        public void ReloadSources()
+        internal void ReloadSources()
         {
-            LochRepository.Instance.ClearAllCaches();
             foreach (var source in _sources)
             {
-                source.Load(LochRepository.Instance);
+                source.LoadDomains(LochRepository.Instance);
             }
-            LochRepository.Instance.ReloadCurrentLocales();
         }
     }
 }

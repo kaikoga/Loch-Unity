@@ -20,7 +20,7 @@ namespace Silksprite.Loch
 
         void OnValidate()
         {
-            LochDomainSourceRegistry.Instance.ReloadSources();
+            LochRepository.Instance.InvalidateDomainCache();
         }
     }
 }

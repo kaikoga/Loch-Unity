@@ -1,11 +1,14 @@
 using System.Linq;
 using UnityEditor;
+using UnityEngine;
 
 namespace Silksprite.Loch.Core.Settings
 {
+    [DefaultExecutionOrder(int.MinValue)]
     class AssetDatabaseLochDomainSource : AssetPostprocessor, ILochDomainSource
     {
         [InitializeOnLoadMethod]
+        [RuntimeInitializeOnLoadMethod]
         static void InitializeOnLoad()
         {
             LochDomainSourceRegistry.Instance.Add(new AssetDatabaseLochDomainSource());
@@ -13,10 +16,10 @@ namespace Silksprite.Loch.Core.Settings
 
         static void OnPostprocessAllAssets(string[] importedAssets, string[] deletedAssets, string[] movedAssets, string[] movedFromAssetPaths)
         {
-            LochDomainSourceRegistry.Instance.ReloadSources();
+            LochRepository.Instance.InvalidateDomainCache();
         }
         
-        void ILochDomainSource.Load(LochRepository repository)
+        void ILochDomainSource.LoadDomains(ILochDomainLoader loader)
         {
             var domains = AssetDatabase.FindAssets("t:LochConfigObject")
                 .Select(AssetDatabase.GUIDToAssetPath)
@@ -24,7 +27,7 @@ namespace Silksprite.Loch.Core.Settings
                 .Select(config => config.LochDomain);
             foreach (var domain in domains)
             {
-                repository.Add(domain);
+                loader.Load(domain);
             }
         }
     }
