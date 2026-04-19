@@ -24,6 +24,7 @@ namespace Silksprite.Loch.Core.Settings
             var domains = AssetDatabase.FindAssets("t:LochConfigObject")
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .Select(AssetDatabase.LoadAssetAtPath<LochConfigObject>)
+                .ToArray() // NOTE: materialize to prevent LochRepository.InvalidateDomainCache() while loading
                 .Select(config => config.LochDomain);
             foreach (var domain in domains)
             {

@@ -36,8 +36,9 @@ namespace Silksprite.Loch.Core
             {
                 return _domains;
             }
-            LochDomainSourceRegistry.Instance.ReloadSources();
             _isLoaded = true;
+            // NOTE: this may trigger InvalidateDomainCache()
+            LochDomainSourceRegistry.Instance.ReloadSources();
             return _domains;
         }
 
