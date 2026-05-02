@@ -1,14 +1,14 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using Silksprite.Loch.Core.Reflection;
 using UnityEngine.UIElements;
 
 namespace Silksprite.Loch.UIElements.Base
 {
     public static class LochElement
     {
+        static readonly Assembly DefaultAssembly = typeof(LocalizedContent).Assembly;
+
         public class UxmlTraits<TTraits> : UxmlTraits
             where TTraits : UxmlTraits, new()
         {
@@ -47,18 +47,10 @@ namespace Silksprite.Loch.UIElements.Base
 
                     {
                         var locValue = "";
-                        string maybeTypeName;
                         if (_loc.TryGetValueFromBag(bag, cc, ref locValue))
                         {
-                            maybeTypeName = locValue.Split(":", 2, StringSplitOptions.RemoveEmptyEntries).FirstOrDefault() ?? "";
+                            locElement.loc = new LocalizedContent(locValue, DefaultAssembly);
                         }
-                        else
-                        {
-                            maybeTypeName = cc.visualTreeAsset.name;
-                            locValue = $"{maybeTypeName}::{ve.name}";
-                        }
-                        var loc = new LocalizedContent(locValue, TypeRepository.Instance.GetType(maybeTypeName)?.Assembly ?? Assembly.GetCallingAssembly());
-                        locElement.loc = loc;
                     }
                 }
                 else

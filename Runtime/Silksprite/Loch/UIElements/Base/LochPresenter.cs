@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using UnityEngine.UIElements;
 
 namespace Silksprite.Loch.UIElements.Base
@@ -35,6 +36,23 @@ namespace Silksprite.Loch.UIElements.Base
                 LochRefresh();
             }
         }
+        internal string Key
+        {
+            set
+            {
+                _loc = _loc?.WithKey(value);
+                LochRefresh();
+            }
+        }
+        public Assembly Assembly
+        {
+            set
+            {
+                _loc = _loc?.WithAssembly(value);
+                LochRefresh();
+            }
+        }
+
         public string? Text
         {
             get => _text;
