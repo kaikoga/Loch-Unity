@@ -10,7 +10,7 @@ namespace Silksprite.Loch.Tools
     [PublicAPI]
     public static class LochTool
     {
-        public static Assembly? CurrentAssembly;
+        internal static Assembly? CurrentAssembly;
         
         public static string Tr(string key)
         {

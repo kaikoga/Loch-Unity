@@ -24,6 +24,8 @@ namespace Silksprite.Loch
             Substitution = ReadOnlySubstitution.Empty;
         }
 
+        internal LocalizedContent WithKey(string key) => new LocalizedContent(key, Assembly, Substitution);
+        internal LocalizedContent WithAssembly(Assembly assembly) => new LocalizedContent(_key, assembly, Substitution);
         public LocalizedContent Format(Substitution substitution) => new LocalizedContent(_key, Assembly, substitution.ToReadOnly());
         public LocalizedContent Merge(Substitution substitution) => new LocalizedContent(_key, Assembly, Substitution.Merge(substitution));
 
