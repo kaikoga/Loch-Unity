@@ -8,7 +8,12 @@ using UnityEngine.UIElements;
 namespace Silksprite.Loch.UIElements.LEditor
 {
     [PublicAPI]
-    public class LocaleSelector : IMGUIContainer
+#if UNITY_2023_2_OR_NEWER
+    [UxmlElement] public partial 
+#else
+    public
+#endif
+        class LocaleSelector : IMGUIContainer
     {
         Assembly _assembly;
 
@@ -32,6 +37,7 @@ namespace Silksprite.Loch.UIElements.LEditor
             LEditorGUILayout.LocaleSelector(_assembly);
         }
 
+#if !UNITY_2023_2_OR_NEWER
         public new class UxmlFactory : UxmlFactory<LocaleSelector, UxmlTraits> {}
         
         public new class UxmlTraits : IMGUIContainer.UxmlTraits
@@ -51,5 +57,6 @@ namespace Silksprite.Loch.UIElements.LEditor
                 ((LocaleSelector)ve)._assembly = TypeRepository.Instance.GetType(maybeTypeName)?.Assembly ?? Assembly.GetCallingAssembly();
             }
         }
+#endif
     }
 }

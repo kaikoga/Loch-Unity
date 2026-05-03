@@ -5,7 +5,12 @@ using UnityEngine.UIElements;
 namespace Silksprite.Loch.UIElements.LEditor
 {
     [PublicAPI]
-    public class ObjectField : UnityEditor.UIElements.ObjectField, ILocField
+#if UNITY_2023_2_OR_NEWER
+    [UxmlElement] public partial 
+#else
+    public
+#endif
+        class ObjectField : UnityEditor.UIElements.ObjectField, ILocField
     {
         readonly LochPresenter<ObjectField> _loch;
 
@@ -27,7 +32,15 @@ namespace Silksprite.Loch.UIElements.LEditor
             _loch.OnRenderLabel += str => base.label = str;
         }
 
+#if UNITY_2023_2_OR_NEWER
+        [UxmlAttribute("loc")]
+        LocalizedContent Loc { get => loc.GetValueOrDefault(); set => loc = value; }
+
+        [UxmlAttribute("label")]
+        string Label { get => label ?? ""; set => label = value; }
+#else
         public new class UxmlFactory : UxmlFactory<ObjectField, UxmlTraits> {}
         public new class UxmlTraits : LochElement.UxmlTraits<UnityEditor.UIElements.ObjectField.UxmlTraits> { }
+#endif
     }
 }

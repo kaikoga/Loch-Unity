@@ -1,11 +1,17 @@
 using JetBrains.Annotations;
+using Silksprite.Loch.Tools;
 using Silksprite.Loch.UIElements.Base;
 using UnityEngine.UIElements;
 
 namespace Silksprite.Loch.UIElements
 {
     [PublicAPI]
-    public class Toggle : UnityEngine.UIElements.Toggle, ILocTextElement, ILocField
+#if UNITY_2023_2_OR_NEWER
+    [UxmlElement] public partial 
+#else
+    public
+#endif
+        class Toggle : UnityEngine.UIElements.Toggle, ILocTextElement, ILocField
     {
         readonly LochPresenter<Toggle> _loch;
 
@@ -33,7 +39,17 @@ namespace Silksprite.Loch.UIElements
             _loch.OnRenderLabel += str => base.label = str;
         }
 
+#if UNITY_2023_2_OR_NEWER
+        [UxmlAttribute("loc")]
+        LocalizedContent Loc { get => loc ?? LochTool.LocEmpty(); set => loc = value; }
+
+        [UxmlAttribute("text")]
+        string Text { get => text ?? ""; set => text = value; }
+        [UxmlAttribute("label")]
+        string Label { get => label ?? ""; set => label = value; }
+#else
         public new class UxmlFactory : UxmlFactory<Toggle, UxmlTraits> {}
         public new class UxmlTraits : LochElement.UxmlTraits<UnityEngine.UIElements.Toggle.UxmlTraits> { }
+#endif
     }
 }

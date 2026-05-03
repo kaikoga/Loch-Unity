@@ -9,7 +9,12 @@ namespace Silksprite.Loch.UIElements
     /// Simple helper to render a header-like bold text through IMGUI to avoid UIElements font issue
     /// </summary>
     [PublicAPI]
-    public class Heading : IMGUIContainer, ILocTextElement
+#if UNITY_2023_2_OR_NEWER
+    [UxmlElement] public partial 
+#else
+    public
+#endif
+        class Heading : IMGUIContainer, ILocTextElement
     {
         static readonly GUIStyle HeadingStyle = new GUIStyle
         {
@@ -47,7 +52,15 @@ namespace Silksprite.Loch.UIElements
             GUILayout.Label(_text, HeadingStyle);
         }
 
+#if UNITY_2023_2_OR_NEWER
+        [UxmlAttribute("loc")]
+        LocalizedContent Loc { get => loc.GetValueOrDefault(); set => loc = value; }
+
+        [UxmlAttribute("text")]
+        string Text { get => text ?? ""; set => text = value; }
+#else
         public new class UxmlFactory : UxmlFactory<Heading, UxmlTraits> {}
         public new class UxmlTraits : LochElement.UxmlTraits<UnityEngine.UIElements.IMGUIContainer.UxmlTraits> { }
+#endif
     }
 }

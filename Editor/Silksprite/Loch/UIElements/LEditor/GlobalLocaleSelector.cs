@@ -6,7 +6,12 @@ using UnityEngine.UIElements;
 namespace Silksprite.Loch.UIElements.LEditor
 {
     [PublicAPI]
-    public class GlobalLocaleSelector : IMGUIContainer
+#if UNITY_2023_2_OR_NEWER
+    [UxmlElement] public partial 
+#else
+    public
+#endif
+        class GlobalLocaleSelector : IMGUIContainer
     {
         public GlobalLocaleSelector()
         {
@@ -23,8 +28,10 @@ namespace Silksprite.Loch.UIElements.LEditor
             LEditorGUILayout.GlobalLocaleSelector();
         }
 
+#if !UNITY_2023_2_OR_NEWER
         public new class UxmlFactory : UxmlFactory<GlobalLocaleSelector, UxmlTraits> {}
         
         public new class UxmlTraits : IMGUIContainer.UxmlTraits {}
+#endif
     }
 }

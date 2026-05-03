@@ -6,7 +6,12 @@ using UnityEngine.UIElements;
 namespace Silksprite.Loch.UIElements
 {
     [PublicAPI]
-    public class Button : UnityEngine.UIElements.Button, ILocTextElement
+#if UNITY_2023_2_OR_NEWER
+    [UxmlElement] public partial 
+#else
+    public
+#endif
+        class Button : UnityEngine.UIElements.Button, ILocTextElement
     {
         readonly LochPresenter<Button> _loch;
 
@@ -34,7 +39,15 @@ namespace Silksprite.Loch.UIElements
             _loch.OnRenderText += str => base.text = str;
         }
 
+#if UNITY_2023_2_OR_NEWER
+        [UxmlAttribute("loc")]
+        LocalizedContent Loc { get => loc.GetValueOrDefault(); set => loc = value; }
+
+        [UxmlAttribute("text")]
+        string Text { get => text ?? ""; set => text = value; }
+#else
         public new class UxmlFactory : UxmlFactory<Button, UxmlTraits> {}
         public new class UxmlTraits : LochElement.UxmlTraits<UnityEngine.UIElements.Button.UxmlTraits> { }
+#endif
     }
 }

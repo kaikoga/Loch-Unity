@@ -7,6 +7,7 @@ namespace Silksprite.Loch.UIElements.Base
 {
     public static class LochElement
     {
+#if !UNITY_2023_2_OR_NEWER
         static readonly Assembly DefaultAssembly = typeof(LocalizedContent).Assembly;
 
         public class UxmlTraits<TTraits> : UxmlTraits
@@ -60,5 +61,6 @@ namespace Silksprite.Loch.UIElements.Base
 
             }
         }
+#endif
     }
 }

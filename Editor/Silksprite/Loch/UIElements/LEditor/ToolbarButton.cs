@@ -6,7 +6,12 @@ using UnityEngine.UIElements;
 namespace Silksprite.Loch.UIElements.LEditor
 {
     [PublicAPI]
-    public class ToolbarButton : UnityEditor.UIElements.ToolbarButton, ILocTextElement
+#if UNITY_2023_2_OR_NEWER
+    [UxmlElement] public partial 
+#else
+    public
+#endif
+        class ToolbarButton : UnityEditor.UIElements.ToolbarButton, ILocTextElement
     {
         readonly LochPresenter<ToolbarButton> _loch;
 
@@ -34,7 +39,15 @@ namespace Silksprite.Loch.UIElements.LEditor
             _loch.OnRenderText += str => base.text = str;
         }
 
+#if UNITY_2023_2_OR_NEWER
+        [UxmlAttribute("loc")]
+        LocalizedContent Loc { get => loc.GetValueOrDefault(); set => loc = value; }
+
+        [UxmlAttribute("text")]
+        string Text { get => text ?? ""; set => text = value; }
+#else
         public new class UxmlFactory : UxmlFactory<ToolbarButton, UxmlTraits> {}
         public new class UxmlTraits : LochElement.UxmlTraits<UnityEditor.UIElements.ToolbarButton.UxmlTraits> { }
+#endif
     }
 }

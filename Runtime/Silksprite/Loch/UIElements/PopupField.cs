@@ -8,7 +8,12 @@ using UnityUIElements = UnityEngine.UIElements;
 namespace Silksprite.Loch.UIElements
 {
     [PublicAPI]
-    public class PopupField<T> : UnityUIElements.PopupField<T>, ILocField
+#if UNITY_2023_2_OR_NEWER
+    [UxmlElement] public partial 
+#else
+    public
+#endif
+        class PopupField<T> : UnityUIElements.PopupField<T>, ILocField
     {
         readonly LochPresenter<PopupField<T>> _loch;
 
@@ -30,8 +35,16 @@ namespace Silksprite.Loch.UIElements
             _loch.OnRenderLabel += str => base.label = str;
         }
 
+#if UNITY_2023_2_OR_NEWER
+        [UxmlAttribute("loc")]
+        LocalizedContent Loc { get => loc.GetValueOrDefault(); set => loc = value; }
+
+        [UxmlAttribute("label")]
+        string Label { get => label ?? ""; set => label = value; }
+#else
         public new class UxmlFactory : UxmlFactory<PopupField<T>, UxmlTraits> {}
         public new class UxmlTraits : LochElement.UxmlTraits<UnityUIElements.PopupField<T>.UxmlTraits> { }
+#endif
     }
 }
 
