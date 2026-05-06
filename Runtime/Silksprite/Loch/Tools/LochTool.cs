@@ -51,15 +51,13 @@ namespace Silksprite.Loch.Tools
         public static string TrEnum<T>(T enumValue)
             where T : Enum
         {
-            var assembly = CurrentAssembly ?? Assembly.GetCallingAssembly();
-            return LochRepository.Instance.Tr(enumValue, assembly);
+            return LochRepository.Instance.Tr(enumValue, typeof(T).Assembly);
         }
 
         public static GUIContent GUIContentEnum<T>(T enumValue)
             where T : Enum
         {
-            var assembly = CurrentAssembly ?? Assembly.GetCallingAssembly();
-            return LochRepository.Instance.GUIContent(enumValue, assembly);
+            return LochRepository.Instance.GUIContent(enumValue, typeof(T).Assembly);
         }
 
         public static LocalizedContent Loc(string key)
@@ -76,7 +74,7 @@ namespace Silksprite.Loch.Tools
         public static LocalizedContent LocEnum<T>(T enumValue)
             where T : Enum
         {
-            return new LocalizedContent(LEnumData.Key(enumValue), Assembly.GetCallingAssembly());
+            return new LocalizedContent(LEnumData.Key(enumValue), typeof(T).Assembly);
         }
 
         public static LocalizedContent _Loc(string key)
