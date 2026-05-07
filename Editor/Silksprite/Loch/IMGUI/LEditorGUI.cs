@@ -95,11 +95,13 @@ namespace Silksprite.Loch.IMGUI
                 TEnum newValue;
                 if (LochRepository.Instance.TryLocaleEnumData(typeof(TEnum), lop.Assembly) is { } data)
                 {
-                    newValue = (TEnum)data.Values[EditorGUI.Popup(position, label, lop.Property.enumValueIndex, data.DisplayGUIContents)];
+                    var index = Array.IndexOf(data.Values, (TEnum)Enum.ToObject(typeof(TEnum), lop.Property.intValue));
+                    index = EditorGUI.Popup(position, label, index, data.DisplayGUIContents);
+                    newValue = (TEnum)data.Values[index];
                 }
                 else
                 {
-                    newValue = (TEnum)EditorGUI.EnumPopup(position, label, (TEnum)(object)lop.Property.intValue);
+                    newValue = (TEnum)EditorGUI.EnumPopup(position, label, (TEnum)Enum.ToObject(typeof(TEnum), lop.Property.intValue));
                 }
 
                 if (!EditorGUI.EndChangeCheck()) return;

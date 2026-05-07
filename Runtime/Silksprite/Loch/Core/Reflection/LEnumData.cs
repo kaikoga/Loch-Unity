@@ -19,7 +19,10 @@ namespace Silksprite.Loch.Core.Reflection
 
         public static LEnumData From(Type type)
         {
-            var values = Enum.GetValues(type).OfType<Enum>().ToArray();
+            var values = type.GetFields(BindingFlags.Public | BindingFlags.Static)
+                .Select(field => field.GetValue(null))
+                .OfType<Enum>().ToArray();
+            // var values = Enum.GetValues(type).OfType<Enum>().ToArray();
             var displayKeys = values.Select(Key).ToArray();
             return new LEnumData(type.Assembly, values, displayKeys);
         }
