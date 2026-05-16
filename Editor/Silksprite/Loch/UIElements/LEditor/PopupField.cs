@@ -11,6 +11,9 @@ using UnityUIElements = UnityEditor.UIElements;
 namespace Silksprite.Loch.UIElements.LEditor
 {
     [PublicAPI]
+#if UNITY_2022_3_OR_NEWER
+    [UnityEngine.Scripting.APIUpdating.MovedFrom(false)]
+#endif
 #if UNITY_2023_2_OR_NEWER
     [UxmlElement] public partial 
 #else
