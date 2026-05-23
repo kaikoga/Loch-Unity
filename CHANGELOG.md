@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.0] - 2026-05-24
+
+### Changed
+
+- Substition API is completely overhauled. Loc.TrFormat(Substitutuon) is Loc.Format(Substitutuon).Tr.
+- Assembly is no longer auto detected for UIElements.
+  - Use LochElementTool.Localize<T>() and LochElementTool.LocalizeWith<T>() to manually assign the Assembly for translation.
+- TrEnum<T>() is always translated using the target type's Assembly, instead of the context Assembly.
+- Supports Nullable Reference Types.
+
 ## [2.0.2] - 2026-03-11
 
 ### Fixed
